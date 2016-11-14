@@ -11,32 +11,32 @@ import csv
 
 
 
-def matching_business_ids(path, target_dict):
+def matching_business_ids(in_path, target_dict):
     subset = []
     
-    with open(path, 'rb') as f:
+    with open(in_path, 'rb') as f:
         reader = csv.reader(f)
         for row in reader:
             if row[4] in target_dict:
-                subset.extend([row[4], row[6], row[2]])
+                subset.append(tuple((row[4], row[6], row[2])))
     
     return subset
 
 # procedure to write to file 
 def write_to_file (out_path, data):
-    with open('ur file.csv','wb') as out:
-        csv_out=csv.writer(out)
+    with open(out_path,'wb') as f:
+        csv_out=csv.writer(f)
         csv_out.writerow(['business_id', 'stars','review'])
         for row in data:
             csv_out.writerow(row)
     
 
 # set variables
-input = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/yelp_academic_dataset_review.csv'
-output = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/restaurant_reviews.csv'
+in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/yelp_academic_dataset_review.csv'
+out_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/restaurant_reviews.csv'
 target_dict = restaurant_dict
 
-match = matching_business_ids(input, target_dict)
+match = matching_business_ids(in_path, target_dict)
 
-write_to_file(output, match)
+write_to_file(out_path, match)
 
