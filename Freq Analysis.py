@@ -35,14 +35,17 @@ def run(path):
 #         print(categories)
 #==============================================================================
 
-    for key, value in restaurant_dict.iteritems():
-        categories = restaurant_dict[key]
+    for key, value in biz_dict.iteritems():
+        # just get the string for categories
+        categories = biz_dict[key]
+        # remove punctuation and first and last bracket
         categories = re.sub("[!@#$.'']", "", categories)
         categories = categories[1:-1]
         print categories
 
 
         for category in categories.split(','):
+            # strip white space
             category = category.strip()
             print(category)
             if  category in freqCategory: # have seen the category before
@@ -54,7 +57,7 @@ def run(path):
 
 
     # sort the dictionary
-    sorted_attributes = sorted(freqCategory.items(),key=itemgetter(1),reverse=True)
+    sorted_attributes = sorted(freqCategory.items(), key=itemgetter(1), reverse=True)
 
     # return the sorted dictionary    
     return sorted_attributes   
@@ -73,5 +76,5 @@ def main ():
 data = main()
 print data
 
-save_to_file( "/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/sorted_attributes.csv", data)
+save_to_file( "/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/biz_sorted_attributes.csv", data)
 

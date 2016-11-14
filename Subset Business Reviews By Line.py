@@ -33,8 +33,8 @@ def write_to_file (out_path, data):
 
 # set variables
 in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/yelp_academic_dataset_review.csv'
-out_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/restaurant_reviews.csv'
-target_dict = restaurant_dict
+out_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/pizza_reviews.csv'
+target_dict = pizza_dict
 
 match = matching_business_ids(in_path, target_dict)
 

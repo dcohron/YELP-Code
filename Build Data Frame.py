@@ -41,24 +41,36 @@ del categories
 # search biz dictionary for restaurants only and create dictionary subset
 restaurant_dict = {k:v for k, v in biz_dict.iteritems() if 'Restaurants' in v}
                    
-# search biz dictionary for hair salons and create dictionary subset                  
-hair_dict = {k:v for k, v in biz_dict.iteritems() if 'Hair Salons' in v}                   
+# search biz dictionary for other business types and create dictionary subset                  
+hair_dict = {k:v for k, v in biz_dict.iteritems() if 'Hair Salons' in v}   
+auto_dict = {k:v for k, v in biz_dict.iteritems() if 'Automotive' in v} 
+home_dict = {k:v for k, v in biz_dict.iteritems() if 'Home & Garden' in v}             
+             
+             
 
 # subset dictionary from restaurants for particular cuisines
+fastfood_dict = {k:v for k, v in restaurant_dict.iteritems() if 'Fast Food' in v}
 pizza_dict = {k:v for k, v in restaurant_dict.iteritems() if 'Pizza' in v}
+mexican_dict = {k:v for k, v in restaurant_dict.iteritems() if 'Mexican' in v}
 burger_dict = {k:v for k, v in restaurant_dict.iteritems() if 'Burgers' in v}      
 american_dict = {k:v for k, v in restaurant_dict.iteritems() if 'American' in v}              
 chinese_dict = {k:v for k, v in restaurant_dict.iteritems() if 'Chinese' in v}              
-fastfood_dict = {k:v for k, v in restaurant_dict.iteritems() if 'Fast Food' in v}
 diners_dict = {k:v for k, v in restaurant_dict.iteritems() if 'Diners' in v}
 
 # write out the dictionaries
+# for restaurants
 write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/restaurants.csv', restaurant_dict)
-write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/hair.csv', hair_dict)
+write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/fastfood.csv', fastfood_dict)
+write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/mexican.csv', mexican_dict)
 write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/pizza.csv', pizza_dict)              
 write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/burger.csv', burger_dict)
 write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/american.csv', american_dict)
 write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/chinese.csv', chinese_dict)
-write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/fastfood.csv', fastfood_dict)
 write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/diner.csv', diners_dict)
+
+# for other business types
+write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/hair.csv', hair_dict)
+write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/auto.csv', auto_dict)
+write_to_file('/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/home.csv', home_dict)
+
               
