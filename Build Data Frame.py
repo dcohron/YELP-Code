@@ -29,13 +29,13 @@ data_frame = pandas.read_csv(input)
 businessID = data_frame['business_id']
 categories = data_frame['categories']
 # categories = literal_eval(categories)
-# junk = map(lambda k, v: biz_dict.update({k: v}), businessID, categories)
-biz_dict = dict(zip(businessID, categories))
+junk = map(lambda k, v: biz_dict.update({k: v}), businessID, categories)
+
 
 # delete unused variable to save memory
 del data_frame
 del businessID
-#del categories
+del categories
 
 
 # search biz dictionary for restaurants only and create dictionary subset

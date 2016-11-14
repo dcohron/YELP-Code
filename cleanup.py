@@ -7,10 +7,10 @@ Created on Sun Nov 13 21:06:51 2016
 """
 
 
-
+del biz_dict
 del burger_dict
 del chinese_dict
-del data
+del american_dict
 del diners_dict
 del fastfood_dict
 del hair_dict
