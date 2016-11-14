@@ -37,10 +37,13 @@ def run(path):
 
     for key, value in restaurant_dict.iteritems():
         categories = restaurant_dict[key]
+        categories = re.sub("[!@#$.'']", "", categories)
+        categories = categories[1:-1]
         print categories
 
 
         for category in categories.split(','):
+            category = category.strip()
             print(category)
             if  category in freqCategory: # have seen the category before
                 freqCategory[category] = freqCategory[category]+1 # increment each count 
@@ -48,8 +51,7 @@ def run(path):
                 freqCategory[category] = 1 # initialize its count to 1   
    
 #    fin.close() # close connection to file
-    
-    print(freqCategory)
+
 
     # sort the dictionary
     sorted_attributes = sorted(freqCategory.items(),key=itemgetter(1),reverse=True)
