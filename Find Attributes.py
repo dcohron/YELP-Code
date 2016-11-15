@@ -10,7 +10,7 @@ The script includes the following pre-processing steps for text:
 - Ngrams
 - POS tagging
 
-The run function includes all 2grams of the form: <ADVERB> <ADJECTIVE>
+The run function includes of grams various sizes that include <NOUN> and <ADJECTIVE>
 
 
 POS tags list: https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
@@ -27,19 +27,21 @@ from nltk import load
 
 
 
-# read file with review subset and return one corpus of reviews
-def read_file(in_path):
-    reviews = []
-    with open(in_path, 'rb') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            reviews.append(row[2])
-
-    return reviews
+#==============================================================================
+# # read file with review subset and return one corpus of reviews
+# def read_file(in_path):
+#     reviews = []
+#     with open(in_path, 'rb') as f:
+#         reader = csv.reader(f)
+#         for row in reader:
+#             reviews.append(row[2])
+# 
+#     return reviews
+#==============================================================================
     
     
 # return all the 'adv adj' twograms
-def getNounAdjNgrams(terms, noun, adv, n):
+def getNounAdjNgrams(terms, noun, adjectives, n):
 
 	result=[]
 
@@ -49,7 +51,7 @@ def getNounAdjNgrams(terms, noun, adv, n):
    	# for each gram
     	for gram in grams:  
          # if the 2gram is an adjective followed by a noun
-         if gram[0] in adj and gram[1] in noun: 
+         if gram[0] in adjectives and gram[1] in noun: 
              result.append(gram)
    
 	return result
@@ -78,22 +80,27 @@ def getPOSterms(terms,POStags,tagger):
     
     
 # main body of program    
-def run(path):    
-
-    # get raw review text from file    
-    review_text = read_file(in_path)
-    
-    print(review_text)
+def run(path):   
+    # initialize list
+    adjWithNoun = []
     
     # make a tagger
     _POS_TAGGER = 'taggers/maxent_treebank_pos_tagger/english.pickle'
     tagger = load(_POS_TAGGER)
 
-    stopLex=set(stopwords.words('english'))
+    # load sexicon of stop words
+    stopLex = set(stopwords.words('english'))
+    
+    # get raw review text from file
+    with open(in_path, 'rb') as f:
+        review = []
+        reader = csv.reader(f)
+        for row in reader:
+            review = row[2]
+    
+            print(review)
+    
 
-    paragraph = review_text.split('.')
-    
-    
 #==============================================================================
 #     # split the text into sentences 
 #     sentences=review_text.split('.') 
@@ -115,36 +122,34 @@ def run(path):
 #             if word=='' or word in stopLex:continue  
 #==============================================================================
          
-    # split sentences
-    sentences = sent_tokenize(paragraph)
-    print 'NUMBER OF SENTENCES: ',len(sentences)
+            # split sentences
+            sentences = sent_tokenize(review)
+            print 'NUMBER OF SENTENCES: ', len(sentences)
 
-    adjWithNoun = []
+            # for each sentence
+            for sentence in sentences:
 
-    # for each sentence
-    for sentence in sentences:
-
-        # replace chars that are not letters or numbers with a space
-        sentence = re.sub('[^a-zA-Z\d]',' ',sentence)
+                # replace chars that are not letters or numbers with a space
+                sentence = re.sub('[^a-zA-Z\d]',' ',sentence)
          
-        # remove duplicate spaces
-        sentence = re.sub(' +',' ', sentence).strip()
+                # remove duplicate spaces
+                sentence = re.sub(' +',' ', sentence).strip()
 
-        # tokenize the lowercase sentence
-        terms = nltk.word_tokenize(sentence.lower())   
+                # tokenize the lowercase sentence
+                terms = nltk.word_tokenize(sentence.lower())   
 
-        # POS tags of interest 
-        POStags = ['JJ','NN'] 		
-        POSterms = getPOSterms(terms,POStags,tagger)
+                # POS tags of interest 
+                POStags = ['JJ','NN'] 		
+                POSterms = getPOSterms(terms,POStags,tagger)
 
-        # get the set of adjectives and nouns
-        adjectives = POSterms['JJ']
-        nouns = POSterms['NN']
+                # get the set of adjectives and nouns
+                adjectives = POSterms['JJ']
+                nouns = POSterms['NN']
 
-        # get the results for this sentence 
-        # call function to get ngrams
-        n = 2
-        adjWithNoun += getNounAdjNgrams(terms, adjectives, adverbs, n)
+                # get the results for this sentence 
+                # call function to get ngrams
+                n = 2
+                adjWithNoun += getNounAdjNgrams(terms, adjectives, nouns, n)
 		
 	return adjWithNoun
 
