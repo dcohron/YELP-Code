@@ -3,7 +3,11 @@
 """
 Created on Mon Nov 14 10:16:31 2016
 
-@author: Nick
+@author: Nick Cohron
+
+This script takes a dictionary of business_id and categories for a specific type of business.  
+Uses the business_id as a key into the YELP academic dataset reviews file to 
+extract the reviews associated with that type of business.
 """
 
 import csv
@@ -33,8 +37,8 @@ def write_to_file (out_path, data):
 
 # set variables
 in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/yelp_academic_dataset_review.csv'
-out_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/pizza_reviews.csv'
-target_dict = pizza_dict
+out_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/auto_reviews.csv'
+target_dict = auto_dict
 
 match = matching_business_ids(in_path, target_dict)
 
