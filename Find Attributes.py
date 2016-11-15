@@ -3,16 +3,12 @@
 """
 Created on Mon Nov 14 19:34:40 2016
 @author: Nick Cohron
-
 The script includes the following pre-processing steps for text:
 - Sentence Splitting
 - Term Tokenization
 - Ngrams
 - POS tagging
-
 The run function includes of grams various sizes that include <NOUN> and <ADJECTIVE>
-
-
 POS tags list: https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
 """
 
