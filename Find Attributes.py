@@ -121,10 +121,13 @@ def run(path):
 #             # ignore empty words and stopwords
 #             if word=='' or word in stopLex:continue  
 #==============================================================================
-         
+            try:
             # split sentences
-            sentences = sent_tokenize(review)
-            print 'NUMBER OF SENTENCES: ', len(sentences)
+                sentences = sent_tokenize(review)
+                print 'NUMBER OF SENTENCES: ', len(sentences)
+                continue
+            except:
+                print "Oops!  That was not tokenizable. Try again..."
 
             # for each sentence
             for sentence in sentences:
