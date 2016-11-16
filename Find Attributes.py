@@ -37,7 +37,7 @@ from nltk import load
     
     
 # return all the 'adv adj' twograms
-def getNounAdjNgrams(terms, noun, adjectives, n):
+def getNounAdjNgrams(terms, adjectives, nouns, n):
 
 	result=[]
 
@@ -94,7 +94,7 @@ def run(path):
         for row in reader:
             review = row[2]
     
-            print(review)
+            #print(review)
     
 
 #==============================================================================
@@ -120,7 +120,7 @@ def run(path):
             try:
             # split sentences
                 sentences = sent_tokenize(review)
-                print (sentences)
+                #print (sentences)
                 print 'NUMBER OF SENTENCES: ', len(sentences)
                 continue
             except:
