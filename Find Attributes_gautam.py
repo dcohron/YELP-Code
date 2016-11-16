@@ -37,16 +37,12 @@ from nltk import load
     
     
 # return all the 'adv adj' twograms
-<<<<<<< HEAD
 def getNounAdjNgrams(terms, nouns, adjectives, n):
-=======
-def getNounAdjNgrams(terms, adjectives, nouns, n):
->>>>>>> refs/remotes/origin/master
 
 	result=[]
 
       # creates a sliding window of two words each
-	grams = ngrams(terms, n) # compute grams
+	grams = ngrams(terms, n) # compute 2-grams
     
    	# for each gram
     	for gram in grams:  
@@ -124,7 +120,6 @@ def run(path):
             try:
             # split sentences
                 sentences = sent_tokenize(review)
-                #print (sentences)
                 print 'NUMBER OF SENTENCES: ', len(sentences)
                 continue
             except:
@@ -132,8 +127,7 @@ def run(path):
 
             # for each sentence
             for sentence in sentences:
-                
-                print (sentence)
+
                 # replace chars that are not letters or numbers with a space
                 sentence = re.sub('[^a-zA-Z\d]',' ',sentence)
          
@@ -142,8 +136,7 @@ def run(path):
 
                 # tokenize the lowercase sentence
                 terms = nltk.word_tokenize(sentence.lower())   
-                print (terms)
-                
+
                 # POS tags of interest 
                 POStags = ['JJ','NN'] 		
                 POSterms = getPOSterms(terms,POStags,tagger)
@@ -166,11 +159,7 @@ def run(path):
 if __name__=='__main__':
      
      # file with raw text reviews
-<<<<<<< HEAD
      in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
-=======
-     in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/test.csv'
->>>>>>> refs/remotes/origin/master
      
      # send raw text for processing of attributes
      print run(in_path)
