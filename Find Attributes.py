@@ -18,7 +18,7 @@ from operator import itemgetter
 import nltk
 from nltk.util import ngrams
 from nltk.corpus import stopwords
-from nltk.tokenize import sent_tokenize
+from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import load
 
 
@@ -37,7 +37,7 @@ from nltk import load
     
     
 # return all the 'adv adj' twograms
-def getNounAdjNgrams(terms, noun, adjectives, n):
+def getNounAdjNgrams(terms, nouns, adjectives, n):
 
 	result=[]
 
@@ -47,7 +47,7 @@ def getNounAdjNgrams(terms, noun, adjectives, n):
    	# for each gram
     	for gram in grams:  
          # if the 2gram is an adjective followed by a noun
-         if gram[0] in adjectives and gram[1] in noun: 
+         if gram[0] in adjectives and gram[1] in nouns: 
              result.append(gram)
    
 	return result
@@ -94,7 +94,7 @@ def run(path):
         for row in reader:
             review = row[2]
     
-            print(review)
+            #print(review)
     
 
 #==============================================================================
@@ -148,19 +148,18 @@ def run(path):
                 # get the results for this sentence 
                 # call function to get ngrams
                 n = 2
-                adjWithNoun += getNounAdjNgrams(terms, adjectives, nouns, n)
+                adjWithNoun += getNounAdjNgrams(terms, nouns, adjectives, n)
 		
 	return adjWithNoun
 
  
- 
- 
+#tag_list = nltk.pos_tag(sentence)
  
  
 if __name__=='__main__':
      
      # file with raw text reviews
-     in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/auto_reviews.csv'
+     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
      
      # send raw text for processing of attributes
      print run(in_path)
