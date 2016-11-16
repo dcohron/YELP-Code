@@ -18,7 +18,7 @@ from operator import itemgetter
 import nltk
 from nltk.util import ngrams
 from nltk.corpus import stopwords
-from nltk.tokenize import sent_tokenize
+from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import load
 
 
@@ -37,7 +37,7 @@ from nltk import load
     
     
 # return all the 'adv adj' twograms
-def getNounAdjNgrams(terms, adjectives, nouns, n):
+def getNounAdjNgrams(terms, nouns, adjectives, n):
 
 	result=[]
 
@@ -47,7 +47,7 @@ def getNounAdjNgrams(terms, adjectives, nouns, n):
    	# for each gram
     	for gram in grams:  
          # if the 2gram is an adjective followed by a noun
-         if gram[0] in adjectives and gram[1] in noun: 
+         if gram[0] in adjectives and gram[1] in nouns: 
              result.append(gram)
    
 	return result
@@ -94,29 +94,9 @@ def run(path):
         for row in reader:
             review = row[2]
     
-            #print(review)
-    
+            print(review)
 
-#==============================================================================
-#     # split the text into sentences 
-#     sentences=review_text.split('.') 
-# 	
-#     # for each sentence, set lower case and strip white space 
-#     # replace non-letter characters with space
-#     # split sentence into words 
-#     for sentence in sentences: 
-#         # lower case and strip white space
-#         sentence = sentence.lower().strip() 
-#         # replace all non-letter characters with a space
-#         sentence = re.sub('[^a-z]',' ',sentence) 
-#         # split on space to get the words in the sentence 
-#         words = sentence.split(' ') 
-# 
-#         # for each word in the sentence
-#         for word in words:  
-#             # ignore empty words and stopwords
-#             if word=='' or word in stopLex:continue  
-#==============================================================================
+            
             try:
             # split sentences
                 sentences = sent_tokenize(review)
@@ -151,7 +131,7 @@ def run(path):
                 # get the results for this sentence 
                 # call function to get ngrams
                 n = 2
-                adjWithNoun += getNounAdjNgrams(terms, adjectives, nouns, n)
+                adjWithNoun += getNounAdjNgrams(terms, nouns, adjectives, n)
 		
 	return adjWithNoun
 
@@ -163,7 +143,7 @@ def run(path):
 if __name__=='__main__':
      
      # file with raw text reviews
-     in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/test.csv'
+     in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/chinese_reviews.csv'
      
      # send raw text for processing of attributes
      print run(in_path)
