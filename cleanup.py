@@ -7,22 +7,22 @@ Created on Sun Nov 13 21:06:51 2016
 """
 
 
+del data
 del biz_dict
+del restaurant_dict
 del burger_dict
 del chinese_dict
 del american_dict
 del diners_dict
 del fastfood_dict
-del hair_dict
 del pizza_dict
-del k
-del v
+del mexican_dict
+del hair_dict
+del auto_dict
+del home_dict
+del target_dict
+del match
 
-listtest = ['Chinese', 'Japanese']
-print (type(listtest))
 
-print(categories)
-print(type(categories))
 
-print(biz_dict['OlpyplEJ_c_hFxyand_Wxw'])
-print (type(biz_dict['OlpyplEJ_c_hFxyand_Wxw']))
+
