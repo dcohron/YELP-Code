@@ -41,7 +41,12 @@ from nltk import load
 def getNounAdjNgrams(terms, nouns, adjectives, n):
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 def getNounAdjNgrams(terms, nouns, adjectives, n):
+=======
+def getNounAdjNgrams(terms, adjectives, nouns, n):
+>>>>>>> refs/remotes/origin/master
+>>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
 =======
 def getNounAdjNgrams(terms, adjectives, nouns, n):
 >>>>>>> refs/remotes/origin/master
@@ -151,13 +156,19 @@ if __name__=='__main__':
      
      # file with raw text reviews
 <<<<<<< HEAD
+<<<<<<< HEAD
      in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/chinese_reviews.csv'
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
      in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
 =======
      in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/test.csv'
 >>>>>>> refs/remotes/origin/master
+<<<<<<< HEAD
+>>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
+=======
 >>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
      
      # send raw text for processing of attributes

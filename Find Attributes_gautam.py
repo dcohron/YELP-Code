@@ -159,7 +159,11 @@ def run(path):
 if __name__=='__main__':
      
      # file with raw text reviews
+<<<<<<< HEAD
      in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/auto_reviews.csv'
+=======
+     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
+>>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
      
      # send raw text for processing of attributes
      print run(in_path)
