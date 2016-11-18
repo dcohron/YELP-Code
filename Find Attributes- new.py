@@ -23,39 +23,52 @@ from nltk import load
 
 
 
+def get_freq_nouns(nouns):
+    
+    # initialize empty dictionary 
+    freqNoun = {} 
+    
+    for noun in nouns:
+        # print noun
+        # check have seen the noun before
+        if noun in freqNoun: 
+            # increment count
+            freqNoun[noun] = freqNoun[noun]+1  
+        # have not seen the noun before
+        else:  
+            # initialize its count to 1 
+            freqNoun[noun] = 1
+
+    # sort the dictionary
+    sorted_attributes = sorted(freqNoun.items(), key=itemgetter(1), reverse=True)
+    # print sorted_attributes
+    
+    # return the sorted dictionary    
+    return sorted_attributes  
+
+
 #==============================================================================
-# # read file with review subset and return one corpus of reviews
-# def read_file(in_path):
-#     reviews = []
-#     with open(in_path, 'rb') as f:
-#         reader = csv.reader(f)
-#         for row in reader:
-#             reviews.append(row[2])
+# def getNounList(terms, nouns, adjectives, n):
 # 
-#     return reviews
+#       # creates a sliding window of two words each
+# 	grams = ngrams(terms, n) # compute 2-grams
+#     
+#    	# for each gram
+#     	for gram in grams:  
+#          # if the 2gram is an adjective followed by a noun
+#          if gram[0] in adjectives and gram[1] in nouns:
+#              NounList.add(gram[1])
+# 	return NounList
 #==============================================================================
-    
-    
+
+  
 # return all the 'adv adj' twograms
-<<<<<<< HEAD
 def getNounAdjNgrams(terms, nouns, adjectives, n):
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-def getNounAdjNgrams(terms, nouns, adjectives, n):
-=======
-def getNounAdjNgrams(terms, adjectives, nouns, n):
->>>>>>> refs/remotes/origin/master
->>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
-=======
-def getNounAdjNgrams(terms, adjectives, nouns, n):
->>>>>>> refs/remotes/origin/master
->>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
 
 	result=[]
 
       # creates a sliding window of two words each
-	grams = ngrams(terms, n) # compute grams
+	grams = ngrams(terms, n) # compute 2-grams
     
    	# for each gram
     	for gram in grams:  
@@ -86,12 +99,12 @@ def getPOSterms(terms,POStags,tagger):
 
 	return POSterms
 
-    
-    
-# main body of program    
+# main sub-routine of program       
 def run(path):   
-    # initialize list
+    # initialize variables
     adjWithNoun = []
+    review_count = 0
+    bad_review_count = 0
     
     # make a tagger
     _POS_TAGGER = 'taggers/maxent_treebank_pos_tagger/english.pickle'
@@ -106,23 +119,24 @@ def run(path):
         reader = csv.reader(f)
         for row in reader:
             review = row[2]
+            review_count += 1
     
-            print(review)
+            #print(review)
+    
 
-            
+
             try:
             # split sentences
                 sentences = sent_tokenize(review)
-                #print (sentences)
-                print 'NUMBER OF SENTENCES: ', len(sentences)
+                # print 'NUMBER OF SENTENCES: ', len(sentences)
                 continue
             except:
-                print "Oops!  That was not tokenizable. Try again..."
+                bad_review_count += 1
+                #print "Oops!  That was not tokenizable. Try again..."
 
             # for each sentence
             for sentence in sentences:
-                
-                print (sentence)
+
                 # replace chars that are not letters or numbers with a space
                 sentence = re.sub('[^a-zA-Z\d]',' ',sentence)
          
@@ -131,8 +145,7 @@ def run(path):
 
                 # tokenize the lowercase sentence
                 terms = nltk.word_tokenize(sentence.lower())   
-                print (terms)
-                
+
                 # POS tags of interest 
                 POStags = ['JJ','NN'] 		
                 POSterms = getPOSterms(terms,POStags,tagger)
@@ -145,8 +158,21 @@ def run(path):
                 # call function to get ngrams
                 n = 2
                 adjWithNoun += getNounAdjNgrams(terms, nouns, adjectives, n)
-		
-	return adjWithNoun
+	
+        #initializing list of Nouns from adjwithnoun
+        NounList=[]
+
+        #get a list of all Nouns from adjwithnoun
+        for gram in adjWithNoun:
+            NounList.append(gram[1])
+            
+	
+                
+                
+                
+    print review_count
+    print bad_review_count
+    return NounList      
 
  
 #tag_list = nltk.pos_tag(sentence)
@@ -155,21 +181,24 @@ def run(path):
 if __name__=='__main__':
      
      # file with raw text reviews
-<<<<<<< HEAD
-<<<<<<< HEAD
-     in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/chinese_reviews.csv'
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
-     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
-=======
-     in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/test.csv'
->>>>>>> refs/remotes/origin/master
-<<<<<<< HEAD
->>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
-=======
->>>>>>> 0d07c6885e4d7a6d9135051b2db2d065e279fc3b
+
+     in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/pizza_reviews.csv'
+
+#     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
+
      
      # send raw text for processing of attributes
-     print run(in_path)
+     noun_list = run(in_path)
+     #print type(noun_list)
+     #print noun_list
+     
+     # frequency analysis of nouns extracted as potential attributes
+     attributes = get_freq_nouns(noun_list)
+     
+     n = 10
+     first_n_attributes = attributes[:n]
+     
+     print first_n_attributes
+     
+     
+     

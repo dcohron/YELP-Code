@@ -77,8 +77,10 @@ def getPOSterms(terms,POStags,tagger):
     
 # main body of program    
 def run(path):   
-    # initialize list
+    # initialize variables
     adjWithNoun = []
+    review_count = 0
+    bad_review_count = 0
     
     # make a tagger
     _POS_TAGGER = 'taggers/maxent_treebank_pos_tagger/english.pickle'
@@ -93,36 +95,19 @@ def run(path):
         reader = csv.reader(f)
         for row in reader:
             review = row[2]
+            review_count += 1
     
             #print(review)
     
 
-#==============================================================================
-#     # split the text into sentences 
-#     sentences=review_text.split('.') 
-# 	
-#     # for each sentence, set lower case and strip white space 
-#     # replace non-letter characters with space
-#     # split sentence into words 
-#     for sentence in sentences: 
-#         # lower case and strip white space
-#         sentence = sentence.lower().strip() 
-#         # replace all non-letter characters with a space
-#         sentence = re.sub('[^a-z]',' ',sentence) 
-#         # split on space to get the words in the sentence 
-#         words = sentence.split(' ') 
-# 
-#         # for each word in the sentence
-#         for word in words:  
-#             # ignore empty words and stopwords
-#             if word=='' or word in stopLex:continue  
-#==============================================================================
+
             try:
             # split sentences
                 sentences = sent_tokenize(review)
-                print 'NUMBER OF SENTENCES: ', len(sentences)
+                # print 'NUMBER OF SENTENCES: ', len(sentences)
                 continue
             except:
+                bad_review_count += 1
                 print "Oops!  That was not tokenizable. Try again..."
 
             # for each sentence
@@ -149,8 +134,10 @@ def run(path):
                 # call function to get ngrams
                 n = 2
                 adjWithNoun += getNounAdjNgrams(terms, nouns, adjectives, n)
-		
-	return adjWithNoun
+	
+    print review_count
+    print bad_review_count
+    return adjWithNoun
 
  
 #tag_list = nltk.pos_tag(sentence)
@@ -159,7 +146,11 @@ def run(path):
 if __name__=='__main__':
      
      # file with raw text reviews
-     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
+
+     in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/auto_reviews.csv'
+
+#     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
+
      
      # send raw text for processing of attributes
      print run(in_path)
