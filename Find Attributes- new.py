@@ -98,6 +98,15 @@ def getPOSterms(terms,POStags,tagger):
                  POSterms[tag].add(pair[0])
 
 	return POSterms
+ 
+ 
+# procedure to write attributes to file 
+def write_to_file(out_path, attribute_list):
+    with open(out_path, 'wb') as csv_file:
+        writer = csv.writer(csv_file)
+        for item in attribute_list:
+            writer.writerow(item)
+ 
 
 # main sub-routine of program       
 def run(path):   
@@ -182,23 +191,28 @@ if __name__=='__main__':
      
      # file with raw text reviews
 
-     in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/pizza_reviews.csv'
+     in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/restaurant_reviews.csv'
+     out_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/attributes- restaurant.csv'
 
 #     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
 
      
      # send raw text for processing of attributes
      noun_list = run(in_path)
-     #print type(noun_list)
-     #print noun_list
+     # print type(noun_list)
+     # print noun_list
      
      # frequency analysis of nouns extracted as potential attributes
      attributes = get_freq_nouns(noun_list)
+     # print type(attributes)
+     
+     # save attribute list to file
+     write_to_file(out_path, attributes)
      
      n = 10
      first_n_attributes = attributes[:n]
      
      print first_n_attributes
-     
+     print len(attributes)
      
      
