@@ -23,19 +23,45 @@ from nltk import load
 
 
 
+def get_freq_nouns(nouns):
+    
+    # initialize empty dictionary 
+    freqNoun = {} 
+    
+    for noun in nouns:
+        # print noun
+        # check have seen the noun before
+        if noun in freqNoun: 
+            # increment count
+            freqNoun[noun] = freqNoun[noun]+1  
+        # have not seen the noun before
+        else:  
+            # initialize its count to 1 
+            freqNoun[noun] = 1
+
+    # sort the dictionary
+    sorted_attributes = sorted(freqNoun.items(), key=itemgetter(1), reverse=True)
+    # print sorted_attributes
+    
+    # return the sorted dictionary    
+    return sorted_attributes  
+
+
 #==============================================================================
-# # read file with review subset and return one corpus of reviews
-# def read_file(in_path):
-#     reviews = []
-#     with open(in_path, 'rb') as f:
-#         reader = csv.reader(f)
-#         for row in reader:
-#             reviews.append(row[2])
+# def getNounList(terms, nouns, adjectives, n):
 # 
-#     return reviews
+#       # creates a sliding window of two words each
+# 	grams = ngrams(terms, n) # compute 2-grams
+#     
+#    	# for each gram
+#     	for gram in grams:  
+#          # if the 2gram is an adjective followed by a noun
+#          if gram[0] in adjectives and gram[1] in nouns:
+#              NounList.add(gram[1])
+# 	return NounList
 #==============================================================================
-    
-    
+
+  
 # return all the 'adv adj' twograms
 def getNounAdjNgrams(terms, nouns, adjectives, n):
 
@@ -73,9 +99,7 @@ def getPOSterms(terms,POStags,tagger):
 
 	return POSterms
 
-    
-    
-# main body of program    
+# main sub-routine of program       
 def run(path):   
     # initialize variables
     adjWithNoun = []
@@ -108,7 +132,7 @@ def run(path):
                 continue
             except:
                 bad_review_count += 1
-                print "Oops!  That was not tokenizable. Try again..."
+                #print "Oops!  That was not tokenizable. Try again..."
 
             # for each sentence
             for sentence in sentences:
@@ -135,9 +159,20 @@ def run(path):
                 n = 2
                 adjWithNoun += getNounAdjNgrams(terms, nouns, adjectives, n)
 	
+        #initializing list of Nouns from adjwithnoun
+        NounList=[]
+
+        #get a list of all Nouns from adjwithnoun
+        for gram in adjWithNoun:
+            NounList.append(gram[1])
+            
+	
+                
+                
+                
     print review_count
     print bad_review_count
-    return adjWithNoun
+    return NounList      
 
  
 #tag_list = nltk.pos_tag(sentence)
@@ -147,10 +182,23 @@ if __name__=='__main__':
      
      # file with raw text reviews
 
-     in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/auto_reviews.csv'
+     in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/pizza_reviews.csv'
 
 #     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
 
      
      # send raw text for processing of attributes
-     print run(in_path)
+     noun_list = run(in_path)
+     #print type(noun_list)
+     #print noun_list
+     
+     # frequency analysis of nouns extracted as potential attributes
+     attributes = get_freq_nouns(noun_list)
+     
+     n = 10
+     first_n_attributes = attributes[:n]
+     
+     print first_n_attributes
+     
+     
+     

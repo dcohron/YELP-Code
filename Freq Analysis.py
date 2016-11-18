@@ -18,22 +18,6 @@ def run(path):
     freqCategory={} # empty dict 
 #    attribute = ""
     
-#==============================================================================
-#     fin = open(path, 'r') # open file 
-#     for line in reader(fin): # for each line in the file 
-#         print(line)
-#         categories = line[0]
-#         print(categories)
-#==============================================================================
- 
-#==============================================================================
-#     with open(path, 'rb') as f:
-#         mycsv = csv.reader(f)
-#         for row in mycsv:
-#             categories = row[1]
-#         
-#         print(categories)
-#==============================================================================
 
     for key, value in biz_dict.iteritems():
         # just get the string for categories
