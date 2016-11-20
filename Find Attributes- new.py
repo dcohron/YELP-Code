@@ -191,8 +191,8 @@ if __name__=='__main__':
      
      # file with raw text reviews
 
-     in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/restaurant_reviews.csv'
-     out_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/attributes- restaurant.csv'
+     in_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/reviews/italian_reviews.csv'
+     out_path = r'/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/attributes/attributes- italian.csv'
 
 #     in_path = r'C:\Users\Gautam\Documents\GitHub\Yelp-dataset\csv\auto_reviews.csv'
 

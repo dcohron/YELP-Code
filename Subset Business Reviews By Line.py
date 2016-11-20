@@ -12,7 +12,14 @@ extract the reviews associated with that type of business.
 
 import csv
 
-
+def read_from_file (in_path):
+    read_dict = {}
+    with open(in_path, mode='r') as infile:
+        reader = csv.reader(infile)
+        for row in reader:
+            k,v = row
+            read_dict[k] = v
+    return read_dict
 
 
 def matching_business_ids(in_path, target_dict):
@@ -37,8 +44,10 @@ def write_to_file (out_path, data):
 
 # set variables
 in_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/yelp_academic_dataset_review.csv'
-out_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/auto_reviews.csv'
-target_dict = auto_dict
+out_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/reviews/italian_reviews.csv'
+target_path = '/Users/Nick/Stevens Institute of Technology/Web Analytics/Final Project/data_repo/italian.csv'
+
+target_dict = read_from_file(target_path)
 
 match = matching_business_ids(in_path, target_dict)
 
